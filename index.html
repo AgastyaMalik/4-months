@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>4 months ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=EB+Garamond:ital,wght@0,400;1,400&family=Tenor+Sans&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #080608;
+  --pink: #e8a0bc;
+  --pink-bright: #f2bdd4;
+  --pink-dim: rgba(232,160,188,0.15);
+  --pink-glow: rgba(232,160,188,0.06);
+  --white: #f7f2f0;
+  --cream: #f0e8e2;
+  --muted: rgba(240,232,226,0.42);
+  --display: 'Playfair Display', serif;
+  --body: 'EB Garamond', serif;
+  --label: 'Tenor Sans', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--body);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── CANVAS ── */
+#canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── DEEP BACKGROUND ── */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.bg-glow::before {
+  content: '';
+  position: absolute;
+  width: 80vmax; height: 80vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(140,40,80,0.07) 0%, rgba(80,10,40,0.04) 40%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  animation: breathe 14s ease-in-out infinite;
+}
+.bg-glow::after {
+  content: '';
+  position: absolute;
+  width: 38vmax; height: 38vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,160,188,0.05) 0%, transparent 65%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  animation: breathe 14s ease-in-out infinite reverse;
+}
+@keyframes breathe {
+  0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.7; }
+  50% { transform: translate(-50%,-50%) scale(1.1); opacity: 1; }
+}
+
+/* ── GRAIN ── */
+.grain {
+  position: fixed;
+  inset: -50%; width: 200%; height: 200%;
+  pointer-events: none; z-index: 9998; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px;
+  animation: grain-shift 0.5s steps(1) infinite;
+}
+@keyframes grain-shift {
+  0%  { transform:translate(0,0); }
+  25% { transform:translate(-3%,-3%); }
+  50% { transform:translate(3%,3%); }
+  75% { transform:translate(-3%,3%); }
+  100%{ transform:translate(3%,-3%); }
+}
+
+/* ── PAGES ── */
+.page {
+  position: fixed; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2rem 1.8rem; text-align: center;
+
+  opacity: 0;
+  transform: translateY(35px) scale(0.985);
+  filter: blur(10px);
+
+  transition:
+    opacity 1.1s cubic-bezier(.25,.8,.25,1),
+    transform 1.1s cubic-bezier(.25,.8,.25,1),
+    filter 1.1s cubic-bezier(.25,.8,.25,1);
+
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 10;
+}
+.page.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0px);
+  pointer-events: all;
+}
+.page.exit   { opacity: 0; transform: translateY(-20px) scale(1.004); transition: opacity 0.7s ease, transform 0.7s ease; }
+.page::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(232,160,188,0.08), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.page.active::after {
+  animation: pageGlow 1s ease;
+}
+
+@keyframes pageGlow {
+  0% { opacity: 0.4; }
+  100% { opacity: 0; }
+}
+/* ── S1 OPENING ── */
+#s1 .pill {
+  font-family: var(--label);
+  font-size: clamp(0.55rem, 2.2vw, 0.68rem);
+  letter-spacing: 0.42em; text-transform: uppercase;
+  color: var(--pink); opacity: 0.75; margin-bottom: 2.4rem;
+  padding: 0.45em 1.5em;
+  border: 1px solid rgba(232,160,188,0.2); border-radius: 100px;
+  display: inline-block;
+}
+#s1 .headline {
+  font-family: var(--display);
+  font-size: clamp(3.4rem, 15vw, 7.5rem);
+  font-weight: 300; line-height: 1.04;
+  letter-spacing: -0.02em; margin-bottom: 1.8rem; color: var(--cream);
+}
+#s1 .headline em {
+  font-style: italic; font-weight: 300;
+  background: linear-gradient(135deg, var(--pink-bright) 0%, var(--pink) 55%, #c070a0 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+#s1 .rule {
+  width: 38px; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(232,160,188,0.4), transparent);
+  margin: 0 auto 1.6rem;
+}
+#s1 .sub {
+  font-family: var(--label);
+  font-size: clamp(0.68rem, 2.8vw, 0.8rem);
+  letter-spacing: 0.18em; color: var(--muted);
+}
+
+/* ── S2 MESSAGE ── */
+#s2 { justify-content: flex-start; padding-top: 0; overflow: hidden; }
+.scroll-inner {
+  width: 100%; max-width: 620px; overflow-y: auto;
+  padding: 4rem 0.6rem 5.5rem;
+  -ms-overflow-style: none; scrollbar-width: none;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 7%, black 87%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 7%, black 87%, transparent 100%);
+}
+.scroll-inner::-webkit-scrollbar { display: none; }
+
+#s2 p {
+  font-family: var(--body); font-size: clamp(1.08rem, 4.4vw, 1.28rem);
+  font-weight: 400; line-height: 2; color: rgba(240,232,226,0.86); margin-bottom: 1.6em;
+}
+#s2 p.opener {
+  font-family: var(--display); font-size: clamp(1.3rem, 5.2vw, 1.7rem);
+  font-style: italic; font-weight: 300; color: var(--pink-bright);
+  line-height: 1.75; margin-bottom: 2.2em;
+}
+#s2 p.closing { font-family: var(--display); font-style: italic; color: var(--pink); }
+
+/* ── S3 LIST ── */
+#s3 { justify-content: flex-start; overflow: hidden; }
+#s3 .section-label {
+  font-family: var(--label);
+  font-size: clamp(0.55rem, 2.2vw, 0.67rem);
+  letter-spacing: 0.38em; text-transform: uppercase;
+  color: var(--pink); opacity: 0.6;
+  padding-top: 3.8rem; margin-bottom: 1.8rem;
+  flex-shrink: 0; align-self: flex-start;
+  max-width: 620px; width: 100%; padding-left: 0.6rem;
+}
+#s3 .scroll-inner { padding-top: 0; }
+
+.list-item {
+  display: flex;
+  align-items: baseline;
+  gap: 1.1rem;
+  margin-bottom: 1.5em;
+  text-align: left;
+
+  opacity: 0;
+  transform: translateY(25px) scale(0.98);
+  filter: blur(6px);
+
+  transition: 
+    opacity 0.8s ease,
+    transform 0.8s ease,
+    filter 0.8s ease;
+
+  transition-delay: calc(var(--i) * 90ms);
+}
+
+.list-item.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0px);
+}
+.list-item .dot-bul {
+  flex-shrink: 0;
+  color: var(--pink);
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 0.4em;
+}
+.list-item .dot-bul::before {
+  content: "♥";
+  display: inline-block;
+  animation: heartFloat 3s ease-in-out infinite;
+}
+
+@keyframes heartFloat {
+  0%,100% { transform: translateY(0) scale(1); opacity: 0.7; }
+  50% { transform: translateY(-2px) scale(1.15); opacity: 1; }
+}
+.list-item span {
+  font-family: var(--body); font-size: clamp(0.98rem, 4vw, 1.16rem);
+  font-weight: 400; line-height: 1.85; color: rgba(240,232,226,0.83);
+}
+.list-item:last-child .dot-bul {
+  color: var(--pink-bright);
+  opacity: 1;
+  text-shadow: 0 0 8px rgba(232,160,188,0.4);
+}
+.list-item:last-child span { font-family: var(--display); font-style: italic; color: var(--pink-bright); opacity: 1; }
+
+/* ── S4 ENDING ── */
+#s4 .ornament { font-size: 1rem; color: var(--pink); opacity: 0.3; letter-spacing: 0.6em; margin-bottom: 2rem; }
+#s4 .ending-line {
+  font-family: var(--display); font-size: clamp(1.55rem, 6.8vw, 2.9rem);
+  font-weight: 300; font-style: italic; line-height: 1.58;
+  max-width: 500px; color: var(--cream); margin-bottom: 2.2rem;
+}
+#s4 .ending-line em {
+  background: linear-gradient(135deg, var(--pink-bright), var(--pink));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+#s4 .rule {
+  width: 28px; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(232,160,188,0.38), transparent);
+  margin: 0 auto 1.8rem;
+}
+#s4 .ending-name {
+  font-family: var(--label); font-size: clamp(0.62rem, 2.6vw, 0.76rem);
+  letter-spacing: 0.38em; text-transform: uppercase;
+  color: var(--pink); opacity: 0.65; margin-bottom: 2.6rem;
+}
+.heart-wrap { position: relative; display: inline-block; }
+.heart-big {
+  font-size: 1.6rem; color: var(--pink); display: block;
+  animation: heartbeat 2.8s ease-in-out infinite; position: relative; z-index: 1;
+}
+.heart-shadow {
+  position: absolute; inset: 0; font-size: 1.6rem; color: var(--pink);
+  filter: blur(14px); opacity: 0.45; animation: heartbeat 2.8s ease-in-out infinite;
+}
+.heart-wrap:hover .heart-big {
+  transform: scale(1.3);
+}
+
+.heart-wrap:hover .heart-shadow {
+  filter: blur(20px);
+  opacity: 0.7;
+}
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); opacity: 0.7; }
+  14%     { transform: scale(1.22); opacity: 1; }
+  28%     { transform: scale(1); opacity: 0.7; }
+  42%     { transform: scale(1.1); opacity: 0.9; }
+}
+
+/* ── NEXT BTN ── */
+.btn-next {
+  position: fixed; bottom: 2.2rem; left: 50%; transform: translateX(-50%);
+  background: rgba(232,160,188,0.04); border: 1px solid rgba(232,160,188,0.22);
+  color: rgba(232,160,188,0.65); font-family: var(--label);
+  font-size: 0.6rem; letter-spacing: 0.38em; text-transform: uppercase;
+  padding: 0.82rem 2.3rem; border-radius: 100px; cursor: pointer;
+  transition: all 0.35s ease; z-index: 100;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.btn-next:hover {
+  background: rgba(232,160,188,0.1); border-color: rgba(232,160,188,0.5);
+  color: var(--pink-bright); box-shadow: 0 0 24px rgba(232,160,188,0.08);
+}
+.btn-next:active { transform: translateX(-50%) scale(0.97); }
+.btn-next.hidden { opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+
+/* ── DOTS (vertical pill style) ── */
+.dots {
+  position: fixed; right: 1.3rem; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 8px; z-index: 100;
+}
+.dot {
+  width: 3px; height: 3px; border-radius: 2px;
+  background: rgba(232,160,188,0.2); transition: all 0.5s cubic-bezier(.4,0,.2,1); cursor: pointer;
+}
+.dot.on { background: var(--pink); height: 18px; box-shadow: 0 0 7px rgba(232,160,188,0.55); }
+.dot:hover:not(.on) { background: rgba(232,160,188,0.5); }
+
+/* ── MUSIC ── */
+.btn-music {
+  position: fixed; top: 1.3rem; right: 1.3rem;
+  background: rgba(232,160,188,0.04); border: 1px solid rgba(232,160,188,0.18);
+  color: rgba(232,160,188,0.45); font-family: var(--label);
+  font-size: 0.54rem; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 0.55em 1.1em; border-radius: 100px; cursor: pointer;
+  display: flex; align-items: center; gap: 0.55em;
+  transition: all 0.3s ease; z-index: 200;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.btn-music:hover { color: var(--pink); border-color: rgba(232,160,188,0.45); background: rgba(232,160,188,0.08); }
+.music-bars { display: flex; align-items: flex-end; gap: 2px; height: 10px; }
+.bar { width: 2px; border-radius: 1px; background: currentColor; }
+.btn-music.playing .bar:nth-child(1) { animation: ba 0.8s ease infinite; }
+.btn-music.playing .bar:nth-child(2) { animation: bb 0.7s ease infinite 0.1s; }
+.btn-music.playing .bar:nth-child(3) { animation: ba 0.9s ease infinite 0.2s; }
+@keyframes ba { 0%,100%{height:3px} 50%{height:10px} }
+@keyframes bb { 0%,100%{height:6px} 50%{height:3px} }
+
+@media (max-width: 480px) {
+  .btn-next { bottom: 1.6rem; }
+  .dots { right: 0.9rem; }
+  .btn-music { top: 1rem; right: 1rem; }
+}
+
+#secretOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 6, 8, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  z-index: 9999;
+}
+
+#secretOverlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.secretBox {
+  max-width: 520px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.secretText {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--pink-bright);
+  line-height: 1.8;
+}
+
+
+
+
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="grain"></div>
+<canvas id="canvas"></canvas>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+<button class="btn-music" id="musicBtn">
+  <div class="music-bars">
+    <div class="bar" style="height:4px"></div>
+    <div class="bar" style="height:9px"></div>
+    <div class="bar" style="height:5px"></div>
+  </div>
+  <span id="musicLabel">music</span>
+</button>
+
+<div class="dots">
+  <div class="dot on" data-i="0"></div>
+  <div class="dot" data-i="1"></div>
+  <div class="dot" data-i="2"></div>
+  <div class="dot" data-i="3"></div>
+</div>
+
+<button class="btn-next" id="nextBtn">continue</button>
+
+<!-- S1 -->
+<section class="page active" id="s1">
+  <div class="pill">4 months together &nbsp;♡</div>
+  <h1 class="headline">happy<br><em>anniversary</em><br>my love</h1>
+  <div class="rule"></div>
+  <p class="sub">this is for you — and only you</p>
+</section>
+
+<!-- S2 -->
+<!-- S2 -->
+<!-- S2 -->
+<section class="page" id="s2">
+  <div class="scroll-inner" id="s2scroll">
+
+    <p class="opener">sometimes i sit and think about how you became such an important part of my life without ever needing anything from me in return</p>
+
+    <p>you didn’t just come into my world - you reshaped it. quietly, naturally, without forcing anything. everything just feels different now, like it finally has meaning behind it</p>
+
+    <p>i don’t really remember what it felt like before you in a clear way anymore. it’s not that life was bad, it just feels incomplete in hindsight, like something essential was missing the whole time</p>
+
+    <p>and now that i know what it is, i can’t unsee it. you’re not just part of my life - you’ve become part of how i experience everything in it</p>
+
+    <p>it shows up in the smallest ways. when something happens during the day, my first instinct isn’t to tell someone - it’s to tell you</p>
+
+    <p>when i’m doing something simple, something that doesn’t matter at all, there’s still this constant awareness that you exist in my world, and that alone makes everything feel more grounded</p>
+
+    <p>you’ve become my default thought, not because i force it, but because it’s just where my mind naturally goes now</p>
+
+    <p>i think what makes this so real for me is how consistent it is. not dramatic, not overwhelming - just steady. like you’re part of my life rhythm now</p>
+
+    <p>even the idea of distance doesn’t really change that. it exists, but it doesn’t define anything between us. what we have doesn’t feel like something that depends on physical closeness to stay real</p>
+
+    <p>there’s a calmness in how i feel about you. not confusion, not uncertainty - just clarity. like something finally clicked into place and stayed there</p>
+
+    <p>you feel like home in a way that doesn’t need explanation. not the loud kind of love, not the temporary kind - just something that feels natural and certain</p>
+
+    <p>and maybe that’s what love actually is for me. not intensity that comes and goes, but something that stays present even in silence, even in routine, even in ordinary days</p>
+
+    <p>i don’t need moments to remind me of you. you’re already part of how i think, how i feel, how i move through everything</p>
+
+    <p>and that doesn’t fade with time or distance. if anything, it just becomes more normal, more integrated, more real</p>
+
+    <p class="closing">you are my safe place, my person, my always</p>
+
+  </div>
+</section>
+
+<!-- S3 -->
+<section class="page" id="s3">
+  <div class="section-label">things i can't wait to do with you, my princess</div>
+  <div class="scroll-inner" id="s3scroll">
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to see you for the first time and just stand there for a second taking you in  because i know you'll be even more beautiful than i imagined</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to hug you properly and not let go and just feel like everything is finally right</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to hold your hand while we walk somewhere with no rush, no pressure, just us</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to sit next to you in silence and still feel like it's the happiest moment ever</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to look at you and smile for no reason and have you ask me what and i just say nothing</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to annoy you in person and see your actual reactions and hear your voice right next to me</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to go on dates with you, dress up a little, pick you up, and just spend the whole day together</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to take you out to eat and argue over what to order and end up sharing everything</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to watch movies with you and barely pay attention because i'd rather look at you</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to sit next to you and put my arm around you like it's the most natural thing in the world</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to see all your little habits in real life the way you react to things, the way you move, the way you just exist</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to take random pictures of you because you look too pretty not to</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to have those long late night talks in person where we don't even realize how much time has passed</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to fall asleep knowing you're right there and not miles away</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to wake up and have you be the first thing i see instead of my phone</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to go on random drives with you with music playing and no destination</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to have stupid little arguments and then make up right after because i can't stay mad at you</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to celebrate things properly with you - birthdays, anniversaries, everything</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to travel with you and explore new places together and make memories</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to meet you on your worst days and still choose you just the same</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait to grow with you, change with you, and still be in love with you through all of it</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait for a normal day with you - because even that would mean everything to me</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>i can't wait for all the little moments that don't seem big but end up meaning the most</span></div>
+    <div class="list-item"><div class="dot-bul"></div><span>and most of all i can't wait for the day distance is not a thing for us anymore - until then i'll keep choosing you every single day, my baby, my love, my soulmate, my universe</span></div>
+  </div>
+</section>
+
+<!-- S4 -->
+<section class="page" id="s4">
+  <div class="ornament">· · ·</div>
+  <p class="ending-line">4 months down.<br>a lifetime to go.<br>and i'd choose <em>you</em><br>every single time.</p>
+  <div class="rule"></div>
+  <div class="ending-name">my pyara cutu baby ♡</div>
+  <div class="heart-wrap">
+    <span class="heart-shadow">♥</span>
+    <span class="heart-big">♥</span>
+  </div>
+</section>
+
+<script>
+// ── CANVAS PETALS + STARS ──
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+function drawPetal(x, y, size, angle, opacity) {
+  ctx.save();
+  ctx.translate(x, y); ctx.rotate(angle); ctx.globalAlpha = opacity;
+  ctx.beginPath();
+  ctx.moveTo(0, -size);
+  ctx.bezierCurveTo( size*0.55, -size*0.35,  size*0.55,  size*0.5,  0,  size*0.65);
+  ctx.bezierCurveTo(-size*0.55,  size*0.5, -size*0.55, -size*0.35,  0, -size);
+  ctx.closePath();
+  const g = ctx.createRadialGradient(0, -size*0.1, 0, 0, 0, size);
+  g.addColorStop(0, 'rgba(248,200,220,1)');
+  g.addColorStop(0.5, 'rgba(220,140,175,0.65)');
+  g.addColorStop(1, 'rgba(180,90,135,0)');
+  ctx.fillStyle = g; ctx.fill(); ctx.restore();
+}
+
+function drawStar(x, y, r, opacity) {
+  ctx.save(); ctx.globalAlpha = opacity;
+  ctx.shadowColor = 'rgba(240,180,210,0.9)'; ctx.shadowBlur = r * 4;
+  ctx.fillStyle = 'rgba(250,228,238,1)';
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+
+class P {
+  constructor() { this.init(true); }
+  init(rand) {
+    this.petal = Math.random() < 0.62;
+    this.layer = Math.random();
+    this.parallax = this.layer * 2 + 0.3;
+    this.x = Math.random() * W;
+    this.y = rand ? Math.random() * H * 1.1 : -15;
+    this.sz = this.petal ? 2.5 + Math.random()*5 : 0.45 + Math.random()*1.1;
+    this.vy = this.petal ? 0.25 + this.layer * 0.9 : 0.08 + this.layer * 0.4;
+    this.vx = (Math.random()-0.5)*0.35;
+    this.ang = Math.random()*Math.PI*2;
+    this.rot = (Math.random()-0.5)*0.017;
+    this.op = 0;  
+    this.maxOp = this.petal ? 0.08 + this.layer * 0.18 : 0.15 + this.layer * 0.35;
+    this.wp = Math.random()*Math.PI*2;
+    this.ws = 0.007 + Math.random()*0.011;
+    this.wa = 0.25 + Math.random()*0.7;
+  }
+  tick() {
+    this.y += this.vy * this.parallax;
+    this.x += (this.vx + Math.sin(this.wp) * this.wa) * this.parallax;
+    this.wp += this.ws; this.ang += this.rot;
+    const r = this.y / H;
+    if (r < 0.07)      this.op = Math.min(this.op+0.006, this.maxOp * (r/0.07));
+    else if (r > 0.82) this.op = Math.max(0, this.maxOp * (1-(r-0.82)/0.18));
+    else               this.op = Math.min(this.op+0.004, this.maxOp);
+    if (this.y > H+20) this.init(false);
+  }
+  draw() {
+    this.petal ? drawPetal(this.x, this.y, this.sz, this.ang, this.op)
+               : drawStar(this.x, this.y, this.sz, this.op);
+  }
+}
+
+const pts = Array.from({length: 58}, () => new P());
+(function loop() {
+  ctx.clearRect(0, 0, W, H);
+  pts.forEach(p => { p.tick(); p.draw(); });
+  requestAnimationFrame(loop);
+})();
+
+// ── NAVIGATION ──
+const pages = ['s1','s2','s3','s4'];
+const s4 = document.getElementById('s4');
+let cur = 0, busy = false;
+
+function goTo(i) {
+  if (busy || i === cur || i < 0 || i >= pages.length) return;
+  busy = true;
+  const from = document.getElementById(pages[cur]);
+  const to   = document.getElementById(pages[i]);
+  from.classList.add('exit');
+  setTimeout(() => {
+    from.classList.remove('active','exit');
+    to.classList.add('active');
+    const sc = to.querySelector('.scroll-inner');
+    if (sc) sc.scrollTop = 0;
+    cur = i; updateDots(); updateBtn(); busy = false;
+    if (pages[i] === 's4') {
+
+      document.body.style.transition = "all 1.2s ease";
+      document.body.style.filter = "brightness(1.35) contrast(1.1) saturate(1.3)";
+
+      canvas.style.transition = "all 1.2s ease";
+      canvas.style.transform = "scale(1.06)";
+
+      // extra emotional pulse
+      setTimeout(() => {
+        document.body.style.filter = "brightness(1.25) contrast(1.05)";
+      }, 800);
+    
+    } else {
+      document.body.style.filter = "none";
+      canvas.style.transform = "scale(1)";
+    }
+  }, 700);
+}
+
+function updateDots() {
+  document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('on', i===cur));
+}
+document.querySelectorAll('.dot').forEach(d => d.addEventListener('click', () => goTo(+d.dataset.i)));
+
+const nextBtn = document.getElementById('nextBtn');
+function updateBtn() {
+  if (cur === pages.length - 1) {
+    nextBtn.classList.remove('hidden');
+    nextBtn.textContent = 'replay ♡';
+    return;
+  }
+  nextBtn.classList.remove('hidden');
+  nextBtn.textContent = cur === pages.length - 2 ? 'finish' : 'continue';
+}
+nextBtn.addEventListener('click', () => {
+  const currentPage = document.getElementById(pages[cur]);
+  const sc = currentPage ? currentPage.querySelector('.scroll-inner') : null;
+
+  if (sc && sc.scrollHeight - sc.scrollTop - sc.clientHeight > 42) {
+    sc.scrollBy({ top: sc.clientHeight * 0.72, behavior: 'smooth' });
+    return;
+  }
+
+  if (cur === pages.length - 1) {
+    goTo(0); // replay from start
+    return;
+  }
+
+  goTo(cur + 1);
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowDown'||e.key==='ArrowRight') nextBtn.click();
+  if (e.key==='ArrowUp'||e.key==='ArrowLeft') goTo(cur-1);
+});
+
+let ty=null, tx=null;
+document.addEventListener('touchstart', e=>{ ty=e.touches[0].clientY; tx=e.touches[0].clientX; }, {passive:true});
+document.addEventListener('touchend', e=>{
+  if (ty===null) return;
+  const dy=ty-e.changedTouches[0].clientY, dx=Math.abs(tx-e.changedTouches[0].clientX);
+  if (Math.abs(dy)>52 && Math.abs(dy)>dx) dy>0 ? nextBtn.click() : goTo(cur-1);
+  ty=tx=null;
+});
+
+// ── MUSIC ──
+const audio = document.getElementById('music');
+const musicBtn = document.getElementById('musicBtn');
+const musicLabel = document.getElementById('musicLabel');
+let playing = false;
+musicBtn.addEventListener('click', () => {
+  if (!audio.querySelector('source') && !audio.src) return;
+  if (playing) {
+    audio.pause(); musicLabel.textContent='music'; musicBtn.classList.remove('playing'); playing=false;
+  } else {
+    audio.volume=0.3;
+    audio.play().then(()=>{ musicLabel.textContent='pause'; musicBtn.classList.add('playing'); playing=true; }).catch(()=>{});
+  }
+});
+
+updateBtn();
+
+let holdTimer = null;
+
+// hold on finish button (or any click on it)
+nextBtn.addEventListener('mousedown', startHold);
+nextBtn.addEventListener('touchstart', startHold);
+
+nextBtn.addEventListener('mouseup', cancelHold);
+nextBtn.addEventListener('mouseleave', cancelHold);
+nextBtn.addEventListener('touchend', cancelHold);
+
+function startHold() {
+  holdTimer = setTimeout(() => {
+    secretOverlay.classList.add('show');
+  }, 1200); // hold for 1.2s
+}
+
+function cancelHold() {
+  clearTimeout(holdTimer);
+}
+// ── LIST ITEM FADE-IN (S3) ──
+const items = document.querySelectorAll('.list-item');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+}, {
+  threshold: 0.2,
+  root: document.getElementById('s3scroll') 
+});
+items.forEach((item, i) => {
+  item.style.setProperty('--i', i);
+  observer.observe(item);
+});
+document.body.addEventListener('click', () => {
+  if (!playing) {
+    audio.volume = 0.3;
+    audio.play().then(() => {
+      musicLabel.textContent = 'pause';
+      musicBtn.classList.add('playing');
+      playing = true;
+    }).catch(()=>{});
+  }
+}, { once: true });
+// ── S2 TEXT FADE-IN ──
+const paragraphs = document.querySelectorAll('#s2 p');
+
+const pObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = 1;
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, {
+  threshold: 0.2,
+  root: document.getElementById('s2scroll')
+});
+
+paragraphs.forEach(p => {
+  p.style.opacity = 0;
+  p.style.transform = 'translateY(15px)';
+  p.style.transition = 'all 0.6s ease';
+  pObserver.observe(p);
+});
+
+</script>
+
+
+</body>
+</html>
